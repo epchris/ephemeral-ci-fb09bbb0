@@ -1,0 +1,35 @@
+[_]
+schema-version = "0.2"
+id = "com.example.go-getting-started"
+name = "Go Getting Started"
+version = "1.0.0"
+
+[io.buildpacks]
+exclude = [
+  "/README.md"
+]
+
+[[io.buildpacks.group]]
+id = "me/inline_test"
+
+  [io.buildpacks.group.script]
+    api = "0.9"
+    inline = "echo 'Hello, world!'"
+
+[[io.buildpacks.group]]
+id = "heroku/go"
+version = "0.2.0"
+
+### REVIEW APP CONFIGURATION
+[com.heroku.stages.review]
+stack = "heroku-22"
+
+[com.heroku.stages.review.env]
+BANANA_BREAD = "CAKE"
+
+[com.heroku.stages.review.formation]
+web = { quantity = 2, size = "basic" }
+
+[com.heroku.stages.review.scripts]
+postdeploy = "echo 'HELLO WORLD'"
+pr-predestroy = "echo 'GOODBYE WORLD'"
